@@ -1,0 +1,23 @@
+#findbacktrace ps num start end
+#ps指针
+#num表示栈回溯的层数
+#start表示代码段开始地址
+#end表示代码段结束地址
+
+define findbacktrace
+	if $argc == 4
+		set $psss = $arg0
+		set $num = 0
+		while($num<$arg1)
+			if((*($psss)>$arg2)&&(*($psss)<$arg3))
+				info line *(*($psss))
+			end
+			set $num = $num+1
+			set $psss = $psss+4
+		end
+	else
+		print "param error"
+	end
+end
+
+#create by top
